@@ -94,7 +94,7 @@ export abstract class Controller{
         }
     };
 
-    handleError = (res, err, status = 500, message = 'Internal serter error') => {
+    handleError = (res, err, status = 500, message = 'Internal server error') => {
 
             if (err) {
                 console.error(err);

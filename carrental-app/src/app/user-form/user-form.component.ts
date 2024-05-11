@@ -24,7 +24,8 @@ export class UserFormComponent implements OnInit {
     name: '',
     address: '',
     phone: '',
-    idCard: ''
+    idCard: '',
+    driversLicense: ''
   });
 
   isNewUser = true;

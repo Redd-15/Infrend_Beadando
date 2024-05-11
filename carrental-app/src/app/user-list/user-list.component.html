@@ -2,10 +2,11 @@
     <thead>
         <tr>
             <th>Ügyfélkód</th>
-            <th>Cím</th>
+            <th>Név</th>
             <th>Lakcím</th>
             <th>Telefonszám</th>
             <th>Személy ig. szám</th>
+            <th>Jogosítvány szám</th>
             <th>Műveletek</th>
         </tr>
     </thead>
@@ -17,8 +18,8 @@
                 <td>{{user.address}}</td>
                 <td>{{user.phone}}</td>
                 <td>{{user.idCard}}</td>
+                <td>{{user.driversLicense}}</td>
                 <td>
-                    <button class="btn btn-outline-primary" (click)="getTransactionOfUser(user.id)">Kimenő tranzakciók</button>
                     <button class="btn btn-outline-primary" (click)="goToUserForm(user.id)">Módosítás</button>
                     <button class="btn btn-outline-danger" (click)="deleteUser(user)">Törlés</button>
                 </td>

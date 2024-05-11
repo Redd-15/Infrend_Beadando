@@ -1,3 +1,5 @@
+import { vehicleStatus, vehicleType } from "../server/src/entity/Vehicle";
+
 export interface UserDTO{
 
     id: number
@@ -6,12 +8,25 @@ export interface UserDTO{
     address:string;
     phone: string;
     idCard: string;
+    driversLicense: string;
 }
 
-export interface CarrentalTransferDTO{
+export interface VehicleDTO{
+
+    id: number
+    vin: string;
+    brand: string;
+    type: string;
+    licensePlate: string;
+    pricePerDay: number;
+    odometer: number;
+    vehicleType: vehicleType;
+    status: vehicleStatus;
+}
+
+export interface RentDTO{
     id: number;
-    amount: number;
-    timestamp: string;
-    source: UserDTO | null;
-    destination: UserDTO | null;
+    price: number;
+    timestampFrom: string;
+    timestampTo: string;
 }

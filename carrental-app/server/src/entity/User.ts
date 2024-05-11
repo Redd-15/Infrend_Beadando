@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
-import { CarrentalTransfer } from "./CarrentalTransfer";
-import { UserDTO } from "../../../models";
+import { Rent } from "./Rent";
+import { RentDTO, UserDTO } from "../../../models";
 
 @Entity()
 export class User implements UserDTO {
@@ -9,7 +9,7 @@ export class User implements UserDTO {
     id: number
 
     @Column()
-    customerId : string;
+    customerId: string;
 
     @Column()
     name: string;
@@ -23,9 +23,9 @@ export class User implements UserDTO {
     @Column()
     idCard: string;
 
-    @OneToMany(() => CarrentalTransfer, (transaction) => transaction.source)
-    outgoingTransactions : CarrentalTransfer[];
+    @Column()
+    driversLicense: string;
 
-    @OneToMany(() => CarrentalTransfer, (transaction) => transaction.destination)
-    incomingTransactions : CarrentalTransfer[];
+    @OneToMany(() => Rent, (rent) => rent.renting)
+    rents: RentDTO
 }

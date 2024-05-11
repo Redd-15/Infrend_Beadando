@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { UserDTO } from '../../../models';
 import { Router } from '@angular/router';
-import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-user-list',
@@ -14,7 +13,6 @@ import { TransactionService } from '../services/transaction.service';
 export class UserListComponent implements OnInit {
 
   userService = inject(UserService);
-  transactionService = inject(TransactionService);
   users: UserDTO[] = [];
   router = inject(Router);
 
@@ -48,10 +46,6 @@ export class UserListComponent implements OnInit {
 
 
     });
-    }
-
-    getTransactionOfUser(id: number){
-      this.transactionService.transactionOfUser(id).subscribe(transactions => console.log(transactions));
     }
 
 }
