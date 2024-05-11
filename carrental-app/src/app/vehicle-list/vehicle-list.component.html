@@ -1,0 +1,41 @@
+<div class="mb-3">
+    <button class="btn btn-outline-primary margin" (click)="search()">Keresés</button>
+    <button class="btn btn-outline-primary margin" (click)="resetSearch()">Reset</button>
+</div>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Kód</th>
+            <th>Márka</th>
+            <th>Típus</th>
+            <th>Rendszámtábla</th>
+            <th>Alvázszám</th>
+            <th>Napi bérleti díj</th>
+            <th>Óra állása</th>
+            <th>Státusz</th>
+            <th>Jármű típus</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (vehicle of vehicles; track $index) {
+            <tr>
+                <td>{{vehicle.id}}</td>
+                <td>{{vehicle.brand}}</td>
+                <td>{{vehicle.type}}</td>
+                <td>{{vehicle.licensePlate}}</td>
+                <td>{{vehicle.vin}}</td>
+                <td>{{vehicle.pricePerDay}}</td>
+                <td>{{vehicle.odometer}}</td>
+                <td>{{vehicle.status}}</td>
+                <td>{{vehicle.vehicleType}}</td>
+                <td>
+                    <button class="btn btn-outline-primary" (click)="goToVehicleForm(vehicle.id)">Módosítás</button>
+                    <button class="btn btn-outline-danger" (click)="deleteVehicle(vehicle)">Törlés</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

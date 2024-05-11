@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { UserDTO } from '../../../models';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-form',
@@ -13,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserFormComponent implements OnInit {
 
+  toastr: ToastrService;
   formBuilder = inject(FormBuilder);
   userService = inject(UserService);
   router = inject(Router);
@@ -38,7 +40,7 @@ export class UserFormComponent implements OnInit {
 
         next: (user) => this.userForm.setValue(user),
         error: (err) => {
-          //TODO: Notification
+          //this.toastr.error(err, 'Error!', {timeOut: 3000,});
           console.error(err);
         }
       })
@@ -55,12 +57,13 @@ export class UserFormComponent implements OnInit {
       this.userService.create(user).subscribe({
 
         next: () => {
-          //TODO: Notification
+          //this.toastr.success('Succesfully added new user!', 'Success!', {timeOut: 3000,});
           this.router.navigateByUrl('/');
 
         },
 
         error: (err) => {
+          //this.toastr.error(err, 'Error!', {timeOut: 3000,});
           console.error(err);
         }
 
@@ -71,12 +74,13 @@ export class UserFormComponent implements OnInit {
       this.userService.update(user).subscribe({
 
         next: () => {
-          //TODO: Notification
+          //this.toastr.success('Succesfully added new vehicle!', 'Success!', {timeOut: 3000,});
           this.router.navigateByUrl('/');
 
         },
 
         error: (err) => {
+          //this.toastr.error(err, 'Error!', {timeOut: 3000,});
           console.error(err);
         }
 

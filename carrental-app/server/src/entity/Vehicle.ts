@@ -3,15 +3,27 @@ import { RentDTO, VehicleDTO } from "../../../models";
 import { Rent } from "./Rent";
 
 export enum vehicleStatus {
-    FREE = "free",
-    RENTED = "rented",
-    OUTOFORDER = "outoforder"
+    FREE = "szabad",
+    RENTED = "bérelt",
+    OUTOFORDER = "javítás alatt"
 }
 
+export const VehicleStatus2LabelMapping: Record<vehicleStatus, string> = {
+    [vehicleStatus.FREE]: "Szabad",
+    [vehicleStatus.RENTED]: "Bérelt",
+    [vehicleStatus.OUTOFORDER]: "Javítás alatt"
+};
+
 export enum vehicleType {
-    CAR = "car",
-    BOAT = "boat"
+    CAR = "autó",
+    BOAT = "hajó"
 }
+
+export const VehicleType2LabelMapping: Record<vehicleType, string> = {
+    [vehicleType.BOAT]: "Hajó",
+    [vehicleType.CAR]: "Autó",
+};
+
 
 @Entity()
 export class Vehicle implements VehicleDTO {

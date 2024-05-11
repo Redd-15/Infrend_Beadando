@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-6">
+        <form [formGroup]="vehicleForm">
+            <div class="mb-3">
+                <label for="id" class="form-label">Márka</label>
+                <input type="text" class="form-control" id="brand" formControlName="brand">
+            </div>
+            <div class="mb-3">
+                <label for="id" class="form-label">Típus</label>
+                <input type="text" class="form-control" id="type" formControlName="type">
+            </div>
+            <div class="mb-3">
+                <label for="id" class="form-label">Rendszám</label>
+                <input type="text" class="form-control" id="licensePlate" formControlName="licensePlate">
+            </div>
+            <div class="mb-3">
+                <label for="id" class="form-label">Alvázszám</label>
+                <input type="text" class="form-control" id="vin" formControlName="vin">
+            </div>
+            <div class="mb-3">
+                <label for="id" class="form-label">Napi bérleti díj</label>
+                <input type="number" class="form-control" id="pricePerDay" formControlName="pricePerDay">
+            </div>
+            <div class="mb-3">
+                <label for="id" class="form-label">Óra állása</label>
+                <input type="number" class="form-control" id="odometer" formControlName="odometer">
+            </div>
+            <div class="mb-3">
+                <label for="id" class="form-label">Státusz</label>
+                <select class="form-select" id="status" formControlName="status">
+                    <option value='szabad'>Szabad</option>
+                    <option value='bérelt'>Bérelt</option>
+                    <option value='javítás alatt'>Javítás alatt</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="id" class="form-label">Járműtípus</label>
+                <select class="form-select" id="vehicleType" formControlName="vehicleType">
+                    <option value='autó'>Autó</option>
+                    <option value='hajó'>Hajó</option>
+                </select>
+            </div> 
+            
+        </form>
+        <div class="text-end">
+            <button class="btn btn-outline-primary" (click)="saveVehicle()">Mentés</button>
+        </div>
+    </div>
+</div>

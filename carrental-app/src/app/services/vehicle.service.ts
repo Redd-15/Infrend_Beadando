@@ -18,27 +18,27 @@ export class VehicleService {
     return this.http.get<VehicleDTO>('/api/vehicle/id/' + id);    
   }
 
-  getOneByType(type: string) {
-    return this.http.get<VehicleDTO>('/api/vehicle/id/' + type);    
+  getByType(type: string) {
+    return this.http.get<VehicleDTO[]>('/api/vehicle/type/' + type);    
   }
   
-  getOneByStatus(status: vehicleStatus) {
-    return this.http.get<VehicleDTO>('/api/vehicle/id/' + status);    
+  getByStatus(status: vehicleStatus) {
+    return this.http.get<VehicleDTO[]>('/api/vehicle/status/' + status);    
   }
 
-  getOneByVType(vtype: vehicleType) {
-    return this.http.get<VehicleDTO>('/api/vehicle/id/' + vtype);    
+  getByVType(vtype: vehicleType) {
+    return this.http.get<VehicleDTO[]>('/api/vehicle/vtype/' + vtype);    
   }
 
   create(user: VehicleDTO) {
-    return this.http.post<VehicleDTO>('/api/user', user);
+    return this.http.post<VehicleDTO>('/api/vehicle', user);
   }
 
   update(user: VehicleDTO) {
-    return this.http.put<VehicleDTO>('/api/user', user);
+    return this.http.put<VehicleDTO>('/api/vehicle', user);
   }
 
   delete(id: number) {
-    return this.http.delete('/api/user/' + id); 
+    return this.http.delete('/api/vehicle/' + id); 
   }
 }
