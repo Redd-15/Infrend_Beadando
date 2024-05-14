@@ -18,24 +18,28 @@ export class VehicleService {
     return this.http.get<VehicleDTO>('/api/vehicle/id/' + id);    
   }
 
-  getByType(type: string) {
-    return this.http.get<VehicleDTO[]>('/api/vehicle/type/' + type);    
+  getByStatusV(status: vehicleStatus, vtype: vehicleType) {
+    return this.http.get<VehicleDTO[]>('/api/vehicle/status/' + status+ '&' + vtype);    
   }
-  
-  getByStatus(status: vehicleStatus) {
-    return this.http.get<VehicleDTO[]>('/api/vehicle/status/' + status);    
+
+  getByTypeSV(type: string, status:vehicleStatus, vtype: vehicleType) {
+    return this.http.get<VehicleDTO[]>('/api/vehicle/type/'+ type + '&' + status+ '&' + vtype);    
+  }
+
+  getByLicensePlateSV(lPlate: string, status:vehicleStatus, vtype: vehicleType) {
+    return this.http.get<VehicleDTO[]>('/api/vehicle/lplate/' + lPlate + '&' + status + '&' + vtype);    
   }
 
   getByVType(vtype: vehicleType) {
     return this.http.get<VehicleDTO[]>('/api/vehicle/vtype/' + vtype);    
   }
 
-  create(user: VehicleDTO) {
-    return this.http.post<VehicleDTO>('/api/vehicle', user);
+  create(vehicle: VehicleDTO) {
+    return this.http.post<VehicleDTO>('/api/vehicle', vehicle);
   }
 
-  update(user: VehicleDTO) {
-    return this.http.put<VehicleDTO>('/api/vehicle', user);
+  update(vehicle: VehicleDTO) {
+    return this.http.put<VehicleDTO>('/api/vehicle', vehicle);
   }
 
   delete(id: number) {

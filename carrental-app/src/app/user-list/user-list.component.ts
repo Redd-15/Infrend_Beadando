@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { UserDTO } from '../../../models';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-list',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent implements OnInit {
+
+  constructor(private toastr: ToastrService) {}
 
   userService = inject(UserService);
   users: UserDTO[] = [];
@@ -29,6 +32,10 @@ export class UserListComponent implements OnInit {
     this.router.navigate([ '/edit-user', id]);
   }
 
+  goToRentForm(id: number){
+    this.router.navigate([ 'rent-start/user/', id]);
+  }
+
   deleteUser(user: UserDTO) {
     
     this.userService.delete(user.id).subscribe({
@@ -38,9 +45,10 @@ export class UserListComponent implements OnInit {
         if (index > -1){
           this.users.splice(index, 1);
         }
+        this.toastr.success('Felhasználó sikeresen törölve! id:' + index, 'Siker!', {timeOut: 3000,});
       },
       error : (err) =>{
-        //TODO: Notification
+        this.toastr.error('Hiba történt a felhasználó törése közben! id:' + user.id, 'Hiba!');
         console.error(err);
       }
 

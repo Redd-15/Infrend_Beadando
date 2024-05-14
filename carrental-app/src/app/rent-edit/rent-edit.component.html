@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-6">
+        <form [formGroup]="rentForm">
+
+            <div class="mb-3">
+                <label for="id" class="form-label">Kód</label>
+                <input type="text" class="form-control" id="id" formControlName="id">
+            </div>
+            <div class="mb-3">
+                <label for="renting" class="form-label">Bérlő</label>
+                <select class="form-select" id="renting" formControlName="renting"> 
+                    
+                    @for (user of users; track $index) {
+                        <option [defaultSelected]="user.id == rentForm.value.renting?.id" [ngValue]="{ id: user.id }">{{user.name}} ({{user.customerId}})</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="vehicle" class="form-label">Jármű</label>
+                <select class="form-select" id="vehicle" formControlName="vehicle">
+
+                    @for (vehicle of vehicles; track $index) {
+                        <option [defaultSelected]="vehicle.id == rentForm.value.vehicle?.id" [ngValue]="{ id: vehicle.id }" >{{vehicle.brand}} ({{vehicle.id}}, {{vehicle.licensePlate}})</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="calculatedPrice" class="form-label">Kalkulált összege</label>
+                <input type="text" class="form-control" id="calculatedPrice" formControlName="calculatedPrice">
+            </div>
+            <div class="mb-3">
+                <label for="state" class="form-label">Állapot</label>
+                <input type="text" class="form-control" id="state" formControlName="state">
+            </div>
+            <div class="mb-3">
+                <label for="timestampFrom" class="form-label">Bérlés kezdete</label>
+                <ejs-datetimepicker type="datetime" class="form-control" id="timestampFrom" formControlName="timestampFrom"></ejs-datetimepicker>
+            </div>
+            <div class="mb-3">
+                <label for="timestampTo" class="form-label">Bérlés vége</label>
+                <ejs-datetimepicker type="datetime" class="form-control" id="timestampTo" formControlName="timestampTo"></ejs-datetimepicker>
+            </div>
+        </form>
+        <button class="btn btn-outline-primary" (click)="updateRent()">Küldés</button>
+    </div>
+</div>
+

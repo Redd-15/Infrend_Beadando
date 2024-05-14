@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VehicleDTO } from '../../../models';
 import { VehicleService } from '../services/vehicle.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VehicleStatus2LabelMapping, VehicleType2LabelMapping, vehicleStatus, vehicleType } from '../../../server/src/entity/Vehicle';
+import { vehicleStatus, vehicleType } from '../../../server/src/entity/Vehicle';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,14 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class VehicleFormComponent implements OnInit {
 
-  
-  public VehicleType2LabelMapping = VehicleType2LabelMapping;
-  public VehicleStatus2LabelMapping = VehicleStatus2LabelMapping;
+  constructor(private toastr: ToastrService) { }
 
-  public vehicleTypes = Object.values(vehicleType);
-  public vehicleStatuses = Object.values(vehicleStatus).filter(value => typeof value === 'number');;
-  
-  toastr: ToastrService;
   formBuilder = inject(FormBuilder);
   vehicleService = inject(VehicleService);
   router = inject(Router);
@@ -40,11 +34,20 @@ export class VehicleFormComponent implements OnInit {
     vehicleType: vehicleType.CAR
   });
 
-  
+
   isNewVehicle = true;
 
 
   ngOnInit(): void {
+
+    this.vehicleForm.get('brand')?.addValidators(Validators.required);
+    this.vehicleForm.get('type')?.addValidators(Validators.required);
+    this.vehicleForm.get('licensePlate')?.addValidators(Validators.required);
+    this.vehicleForm.get('vin')?.addValidators(Validators.required);
+    this.vehicleForm.get('pricePerDay')?.addValidators([Validators.required, Validators.min(1000)]);
+    this.vehicleForm.get('odometer')?.addValidators(Validators.required);
+
+
     const id = this.activatedRoute.snapshot.params['id'];
     if (id) {
       this.isNewVehicle = false;
@@ -52,7 +55,7 @@ export class VehicleFormComponent implements OnInit {
 
         next: (vehicle) => this.vehicleForm.setValue(vehicle),
         error: (err) => {
-          this.toastr.error("No such vehicle found! ID: " + id);
+          this.toastr.error("Jármű nem található! id: " + id, 'Hiba!');
           console.error(err);
         }
       })
@@ -61,42 +64,50 @@ export class VehicleFormComponent implements OnInit {
   }
 
   saveVehicle() {
-    const vehicle = this.vehicleForm.value as VehicleDTO;
 
-    if (this.isNewVehicle) {
+    if (this.vehicleForm.valid) {
 
 
-      this.vehicleService.create(vehicle).subscribe({
+      const vehicle = this.vehicleForm.value as VehicleDTO;
 
-        next: () => {
-          //this.toastr.show('Succesfully added new vehicle!', 'Success!', {timeOut: 3000,});
-          this.router.navigateByUrl('/vehicles');
+      if (this.isNewVehicle) {
 
-        },
 
-        error: (err) => {
-          //this.toastr.error(err, 'Error!', {timeOut: 3000,});
-          console.error(err);    
-        }
+        this.vehicleService.create(vehicle).subscribe({
 
-      });
+          next: () => {
+            this.toastr.success('Új jármű sikeresen hozzáadva!', 'Siker!', { timeOut: 3000, });
+            this.router.navigateByUrl('/vehicles');
 
-    } else {
+          },
 
-      this.vehicleService.update(vehicle).subscribe({
+          error: (err) => {
+            this.toastr.error('Hiba történt a jármű létrehozása közben!', 'Hiba!', { timeOut: 3000, });
+            console.error(err);
+          }
 
-        next: () => {
-          //this.toastr.success('Succesfully added new vehicle!', 'Success!', {timeOut: 3000,});
-          this.router.navigateByUrl('/vehicles');
+        });
 
-        },
+      } else {
 
-        error: (err) => {
-          //this.toastr.error(err, 'Error!', {timeOut: 3000,});
-          console.error(err);
-        }
+        this.vehicleService.update(vehicle).subscribe({
 
-      });
+          next: () => {
+            this.toastr.success('Jármű sikeresen frissítve! id: ' + vehicle.id, 'Siker!', { timeOut: 3000, });
+            this.router.navigateByUrl('/vehicles');
+
+          },
+
+          error: (err) => {
+            this.toastr.error('Hiba történt a jármű frissítése közben!', 'Hiba!', { timeOut: 3000, });
+            console.error(err);
+          }
+
+        });
+      }
+    }
+    else{
+      this.toastr.warning('Legalább egy mező hiányzik az oldalon!', 'Hiányzó mező!');
     }
   }
 

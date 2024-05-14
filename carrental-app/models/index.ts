@@ -1,3 +1,4 @@
+import { rentState } from "../server/src/entity/Rent";
 import { vehicleStatus, vehicleType } from "../server/src/entity/Vehicle";
 
 export interface UserDTO{
@@ -26,7 +27,10 @@ export interface VehicleDTO{
 
 export interface RentDTO{
     id: number;
-    price: number;
-    timestampFrom: string;
-    timestampTo: string;
+    calculatedPrice: number;
+    state: rentState;
+    timestampFrom: string | null;
+    timestampTo: string | null;
+    renting: UserDTO | null;
+    vehicle: VehicleDTO | null;
 }

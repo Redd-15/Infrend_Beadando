@@ -20,6 +20,7 @@
                 <td>{{user.idCard}}</td>
                 <td>{{user.driversLicense}}</td>
                 <td>
+                    <button class="btn btn-outline-success" (click)="goToRentForm(user.id)">Foglalás</button>
                     <button class="btn btn-outline-primary" (click)="goToUserForm(user.id)">Módosítás</button>
                     <button class="btn btn-outline-danger" (click)="deleteUser(user)">Törlés</button>
                 </td>

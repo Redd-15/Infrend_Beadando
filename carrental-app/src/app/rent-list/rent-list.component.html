@@ -1,0 +1,54 @@
+
+<form class="form-inline" [formGroup]="searchForm">
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            <label for="status" class="form-label">Állapot</label>
+            <select class="form-select" id="status" formControlName="status">
+                <option [defaultSelected]="true" value='foglalás leadva'>Foglalás leadva</option>
+                <option value='visszamondva'>Visszamondva</option>
+                <option value='autó kiadva'>Autó kiadva</option>
+                <option value='fizetésre vár'>Fizetésre vár</option>
+                <option value='fizetve'>Fizetve</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-2" style="margin-top: 2.5%; margin-bottom: 1%;">
+            <button class="btn btn-outline-primary margin" (click)="search()">Keresés</button>
+            <button class="btn btn-outline-secondary margin" (click)="resetSearch()">Reset</button>
+        </div>
+
+    </div>    
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Kód</th>
+            <th>Bérlő</th>
+            <th>Jármű</th>
+            <th>Kalkulált összeg</th>
+            <th>Állapot</th>
+            <th>Foglalás kezdete</th>
+            <th>Foglalás vége</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (rent of rents; track $index) {
+            <tr>
+                <td>{{rent.id}}</td>
+                <td>{{rent.renting?.name}} ({{rent.renting?.id}})</td>
+                <td>{{rent.vehicle?.brand}} ({{rent.vehicle?.licensePlate}})</td>
+                <td>{{rent.calculatedPrice}} Ft</td>
+                <td>{{rent.state}}</td>
+                <td>{{rent.timestampFrom}}</td>
+                <td>{{rent.timestampTo}}</td>
+                <td>
+                    <button class="btn btn-outline-success" (click)="closeRent(rent.id)">Lezárás</button>
+                    <button class="btn btn-outline-primary" (click)="modifyRent(rent.id)">Módosítás</button>
+                    <button class="btn btn-outline-danger" (click)="deleteRent(rent)">Törlés</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -5,24 +5,15 @@ import { Rent } from "./Rent";
 export enum vehicleStatus {
     FREE = "szabad",
     RENTED = "bérelt",
-    OUTOFORDER = "javítás alatt"
+    OUTOFORDER = "javítás alatt",
+    EITHER = "-"
 }
-
-export const VehicleStatus2LabelMapping: Record<vehicleStatus, string> = {
-    [vehicleStatus.FREE]: "Szabad",
-    [vehicleStatus.RENTED]: "Bérelt",
-    [vehicleStatus.OUTOFORDER]: "Javítás alatt"
-};
 
 export enum vehicleType {
     CAR = "autó",
-    BOAT = "hajó"
+    BOAT = "hajó",
+    EITHER = "-"
 }
-
-export const VehicleType2LabelMapping: Record<vehicleType, string> = {
-    [vehicleType.BOAT]: "Hajó",
-    [vehicleType.CAR]: "Autó",
-};
 
 
 @Entity()
