@@ -71,7 +71,15 @@ export class RentStartFormComponent implements OnInit {
     if (preselectedVehicleId) {
 
       this.vehicleService.getOneById(preselectedVehicleId as number).subscribe({
-        next: (vehicle) => { this.preselectedVehicle = vehicle; this.rentForm.patchValue({ vehicle: this.preselectedVehicle }); },
+        next: (vehicle) => {
+          this.preselectedVehicle = vehicle;
+          if (this.preselectedVehicle.status != vehicleStatus.FREE) {
+            this.toastr.warning('A megadott járművet nem lehet kibérelni! id: ' + preselectedVehicleId, "Figyelem!")
+          }
+          else {
+            this.rentForm.patchValue({ vehicle: this.preselectedVehicle });
+          }
+        },
         error: () => this.toastr.warning('A megadott jármű nem található! id: ' + preselectedVehicleId, "Vigyázat!")
       });
     }
@@ -112,7 +120,7 @@ export class RentStartFormComponent implements OnInit {
                 }
               });
             }
-            
+
           });
 
         }

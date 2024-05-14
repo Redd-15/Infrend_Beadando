@@ -44,7 +44,9 @@
                 <td>{{rent.timestampFrom}}</td>
                 <td>{{rent.timestampTo}}</td>
                 <td>
-                    <button class="btn btn-outline-success" (click)="closeRent(rent.id)">Lezárás</button>
+                    <ng-template [ngIf]="rent.state == ('autó kiadva')">
+                        <button class="btn btn-outline-success" (click)="closeRent(rent.id)">Lezárás</button>
+                    </ng-template>
                     <button class="btn btn-outline-primary" (click)="modifyRent(rent.id)">Módosítás</button>
                     <button class="btn btn-outline-danger" (click)="deleteRent(rent)">Törlés</button>
                 </td>

@@ -5,6 +5,7 @@ import { RentDTO } from '../../../models';
 import { RentService } from '../services/rent.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 export interface SearchDTO {
 
@@ -14,7 +15,7 @@ export interface SearchDTO {
 @Component({
   selector: 'app-rent-list',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './rent-list.component.html',
   styleUrl: './rent-list.component.css'
 })
@@ -28,6 +29,8 @@ export class RentListComponent implements OnInit {
   rents: RentDTO[] = [];
   router = inject(Router);
 
+  vehicleOut = rentState.VEHICLE_OUT;
+
   searchForm = this.formBuilder.group<SearchDTO>({
     status: rentState.EITHER
   });
@@ -38,8 +41,8 @@ export class RentListComponent implements OnInit {
         this.rents = rents
 
         rents.forEach(rent => {
-          rent.timestampFrom = new Date(Date.parse(rent.timestampFrom as string) - (1000 * 60 * 60 * 2)).toISOString();
-          rent.timestampTo = new Date(Date.parse(rent.timestampTo as string) - (1000 * 60 * 60 * 2)).toISOString();
+          rent.timestampFrom = new Date(Date.parse(rent.timestampFrom as string)).toString();
+          rent.timestampTo = new Date(Date.parse(rent.timestampTo as string)).toString();
         });
 
       },
@@ -67,8 +70,8 @@ export class RentListComponent implements OnInit {
   modifyRent(id: number) {
     this.router.navigate(['/rent-edit', id]);
   }
-  closeRent(arg0: any) {
-    throw new Error('Method not implemented.');
+  closeRent(id: number) {
+    this.router.navigate(['/rent-end', id]);
   }
 
   search() {

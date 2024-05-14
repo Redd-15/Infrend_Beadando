@@ -1,1 +1,54 @@
-<p>rent-end-form works!</p>
+<div class="row">
+    <div class="col-md-6">
+        <form [formGroup]="rentForm">
+
+            <div class="mb-3">
+                <label class="form-label">Kód: {{rentForm.value.id}}</label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Bérlő: {{rentForm.value.renting?.name}}
+                    ({{rentForm.value.renting?.id}})</label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Jármű: {{rentForm.value.vehicle?.brand}}
+                    ({{rentForm.value.vehicle?.licensePlate}})</label>
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Kalkulált összeg:
+                    {{rentForm.value.calculatedPrice}} Ft</label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Állapot: {{rentForm.value.state}}</label>
+            </div>
+            <div class="mb-3">
+                <label for="timestampFrom" class="form-label">Bérlés valós kezdete</label>
+                <ejs-datetimepicker type="datetime" class="form-control" id="timestampFrom"
+                    formControlName="timestampFrom"></ejs-datetimepicker>
+            </div>
+            <div class="mb-3">
+                <label for="timestampTo" class="form-label">Bérlés valós vége</label>
+                <ejs-datetimepicker type="datetime" class="form-control" id="timestampTo"
+                    formControlName="timestampTo"></ejs-datetimepicker>
+            </div>
+        </form>
+
+        <form [formGroup]="calculationForm">
+            <div class="mb-3">
+                <label for="newOdometer" class="form-label">Autó kilóméter órájának állása:</label>
+                <input type="number" class="form-control" id="newOdometer" formControlName="newOdometer">
+            </div>
+            <div class="mb-3">
+                <label for="distanceMoney" class="form-label">Távolságdíj (Ft/km) :</label>
+                <input type="number" class="form-control" id="distanceMoney" formControlName="distanceMoney">
+            </div>
+            <div class="mb-3">
+                <label for="crashMoney" class="form-label">Autó sérülés javításának ügyfél felöli önrésze:</label>
+                <input type="number" class="form-control" id="crashMoney" formControlName="crashMoney">
+            </div>
+        </form>
+        <div class="text-end">
+            <button class="btn btn-outline-primary" (click)="calculateRent()">Összegkalkuláció</button>
+            <button class="btn btn-outline-success" (click)="closeRent()">Lezárás</button>
+        </div>
+    </div>
+</div>

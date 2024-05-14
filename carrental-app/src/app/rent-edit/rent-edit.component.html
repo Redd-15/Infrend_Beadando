@@ -8,10 +8,11 @@
             </div>
             <div class="mb-3">
                 <label for="renting" class="form-label">Bérlő</label>
-                <select class="form-select" id="renting" formControlName="renting"> 
-                    
+                <select class="form-select" id="renting" formControlName="renting">
+
                     @for (user of users; track $index) {
-                        <option [defaultSelected]="user.id == rentForm.value.renting?.id" [ngValue]="{ id: user.id }">{{user.name}} ({{user.customerId}})</option>
+                    <option [defaultSelected]="user.id == rentForm.value.renting?.id" [ngValue]="{ id: user.id }">
+                        {{user.name}} ({{user.customerId}})</option>
                     }
                 </select>
             </div>
@@ -20,7 +21,8 @@
                 <select class="form-select" id="vehicle" formControlName="vehicle">
 
                     @for (vehicle of vehicles; track $index) {
-                        <option [defaultSelected]="vehicle.id == rentForm.value.vehicle?.id" [ngValue]="{ id: vehicle.id }" >{{vehicle.brand}} ({{vehicle.id}}, {{vehicle.licensePlate}})</option>
+                    <option [defaultSelected]="vehicle.id == rentForm.value.vehicle?.id" [ngValue]="{ id: vehicle.id }">
+                        {{vehicle.brand}} ({{vehicle.id}}, {{vehicle.licensePlate}})</option>
                     }
                 </select>
             </div>
@@ -30,18 +32,27 @@
             </div>
             <div class="mb-3">
                 <label for="state" class="form-label">Állapot</label>
-                <input type="text" class="form-control" id="state" formControlName="state">
+                <select class="form-select" id="state" formControlName="state">
+                    <option value='foglalás leadva'>Foglalás leadva</option>
+                    <option value='visszamondva'>Visszamondva</option>
+                    <option value='autó kiadva'>Autó kiadva</option>
+                    <option value='fizetésre vár'>Fizetésre vár</option>
+                    <option value='fizetve'>Fizetve</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="timestampFrom" class="form-label">Bérlés kezdete</label>
-                <ejs-datetimepicker type="datetime" class="form-control" id="timestampFrom" formControlName="timestampFrom"></ejs-datetimepicker>
+                <ejs-datetimepicker type="datetime" class="form-control" id="timestampFrom"
+                    formControlName="timestampFrom"></ejs-datetimepicker>
             </div>
             <div class="mb-3">
                 <label for="timestampTo" class="form-label">Bérlés vége</label>
-                <ejs-datetimepicker type="datetime" class="form-control" id="timestampTo" formControlName="timestampTo"></ejs-datetimepicker>
+                <ejs-datetimepicker type="datetime" class="form-control" id="timestampTo"
+                    formControlName="timestampTo"></ejs-datetimepicker>
             </div>
         </form>
-        <button class="btn btn-outline-primary" (click)="updateRent()">Küldés</button>
+        <div class="text-end">
+            <button class="btn btn-outline-primary" (click)="updateRent()">Módosítás</button>
+        </div>
     </div>
 </div>
-
