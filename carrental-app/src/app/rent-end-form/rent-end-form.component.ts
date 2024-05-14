@@ -4,18 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../services/vehicle.service';
 import { RentService } from '../services/rent.service';
-import { RentDTO, UserDTO, VehicleDTO } from '../../../models';
+import { RentDTO, UserDTO, VehicleDTO, endCalculationDTO } from '../../../models';
 import { rentState } from '../../../server/src/entity/Rent';
 import { CommonModule } from '@angular/common';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { vehicleStatus } from '../../../server/src/entity/Vehicle';
 
-export interface endCalculationDTO {
 
-  newOdometer: number,
-  distanceMoney: number,
-  crashMoney: number
-}
 
 @Component({
   selector: 'app-rent-end-form',

@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { User } from "./entity/User"
 import { Rent } from "./entity/Rent"
 import { Vehicle } from "./entity/Vehicle"
+import { Login } from "./entity/Login"
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
     database: "infrend_carrental_app",
     synchronize: true,
     logging: true,
-    entities: [User, Rent, Vehicle],
+    entities: [User, Rent, Vehicle, Login],
     migrations: [],
     subscribers: [],
 })
