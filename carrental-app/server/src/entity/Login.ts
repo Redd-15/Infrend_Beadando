@@ -12,4 +12,6 @@ export class Login implements LoginDTO {
 
     @Column({select: false})
     password: string;
+
+    password2: string;
 }
