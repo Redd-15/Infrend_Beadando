@@ -1,4 +1,3 @@
-
 <form class="form-inline" [formGroup]="searchForm">
     <div class="row">
 
@@ -18,7 +17,7 @@
             <button class="btn btn-outline-secondary margin" (click)="resetSearch()">Reset</button>
         </div>
 
-    </div>    
+    </div>
 </form>
 
 <table class="table table-striped">
@@ -31,26 +30,31 @@
             <th>Állapot</th>
             <th>Foglalás kezdete</th>
             <th>Foglalás vége</th>
+            @if (authService.isLoggedIn()) {
+            <th>Műveletek</th>
+            }
         </tr>
     </thead>
     <tbody>
         @for (rent of rents; track $index) {
-            <tr>
-                <td>{{rent.id}}</td>
-                <td>{{rent.renting?.name}} ({{rent.renting?.id}})</td>
-                <td>{{rent.vehicle?.brand}} ({{rent.vehicle?.licensePlate}})</td>
-                <td>{{rent.calculatedPrice}} Ft</td>
-                <td>{{rent.state}}</td>
-                <td>{{rent.timestampFrom}}</td>
-                <td>{{rent.timestampTo}}</td>
-                <td>
-                    <ng-template [ngIf]="rent.state == ('autó kiadva')">
-                        <button class="btn btn-outline-success" (click)="closeRent(rent.id)">Lezárás</button>
-                    </ng-template>
-                    <button class="btn btn-outline-primary" (click)="modifyRent(rent.id)">Módosítás</button>
-                    <button class="btn btn-outline-danger" (click)="deleteRent(rent)">Törlés</button>
-                </td>
-            </tr>
+        <tr>
+            <td>{{rent.id}}</td>
+            <td>{{rent.renting?.name}} ({{rent.renting?.id}})</td>
+            <td>{{rent.vehicle?.brand}} ({{rent.vehicle?.licensePlate}})</td>
+            <td>{{rent.calculatedPrice}} Ft</td>
+            <td>{{rent.state}}</td>
+            <td>{{rent.timestampFrom}}</td>
+            <td>{{rent.timestampTo}}</td>
+            @if (authService.isLoggedIn()) {
+            <td>
+                <ng-template [ngIf]="rent.state == ('autó kiadva')">
+                    <button class="btn btn-outline-success" (click)="closeRent(rent.id)">Lezárás</button>
+                </ng-template>
+                <button class="btn btn-outline-primary" (click)="modifyRent(rent.id)">Módosítás</button>
+                <button class="btn btn-outline-danger" (click)="deleteRent(rent)">Törlés</button>
+            </td>
+            }
+        </tr>
         }
     </tbody>
 </table>

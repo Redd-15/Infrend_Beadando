@@ -37,17 +37,17 @@ export class LoginController extends Controller{
             });
 
             if (!user){
-                return this.handleError(res, null, 401, 'Incorrect email or password!');
+                return this.handleError(res, null, 401, 'Helytelen email vagy jelszó!');
             }
 
             const passwordMatches = await bcrypt.compare(req.body.password, user.password);
             
             if (!passwordMatches){
-                return this.handleError(res, null, 401, 'Incorrect email or password!');
+                return this.handleError(res, null, 401, 'Helytelen email vagy jelszó!');
             }
 
             const token = jwt.sign({id: user.id}, 'mySecretKey', {expiresIn: '1w'});
-            res.json({accesToken: token});
+            res.json({accessToken: token});
 
         }catch(err){
             this.handleError(res, err);

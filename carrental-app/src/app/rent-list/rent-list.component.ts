@@ -6,6 +6,7 @@ import { RentService } from '../services/rent.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 export interface SearchDTO {
 
@@ -26,13 +27,14 @@ export class RentListComponent implements OnInit {
 
   formBuilder = inject(FormBuilder)
   rentService = inject(RentService);
+  authService = inject(AuthService);
   rents: RentDTO[] = [];
   router = inject(Router);
 
   vehicleOut = rentState.VEHICLE_OUT;
 
   searchForm = this.formBuilder.group<SearchDTO>({
-    status: rentState.EITHER
+    status: rentState.BOOKED
   });
 
   ngOnInit(): void {

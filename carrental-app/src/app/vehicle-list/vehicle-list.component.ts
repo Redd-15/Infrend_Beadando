@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { vehicleStatus, vehicleType } from '../../../server/src/entity/Vehicle';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 
 export interface SearchDTO{
@@ -30,8 +31,10 @@ export class VehicleListComponent implements OnInit {
 
   formBuilder = inject(FormBuilder)
   vehicleService = inject(VehicleService);
+  authService = inject(AuthService);
   vehicles: VehicleDTO[] = [];
   router = inject(Router);
+  freeVehicleStatus = vehicleStatus.FREE;
 
   searchForm = this.formBuilder.group<SearchDTO>({
     id: 0,
@@ -82,7 +85,7 @@ export class VehicleListComponent implements OnInit {
 
     const search = this.searchForm.value as SearchDTO
 
-    if(search.id != 0){
+    if(search.id > 0){
       this.vehicleService.getOneById(search.id).subscribe({
         next: vehicles => {
           this.vehicles = [];
@@ -127,6 +130,18 @@ export class VehicleListComponent implements OnInit {
         }
       });
     }
+    else if (search.status == vehicleStatus.EITHER && search.vehicleType != vehicleType.EITHER){
+      this.vehicleService.getByVType(search.vehicleType).subscribe({
+        next: vehicles => {
+          this.vehicles = vehicles
+        },
+        error: err => {
+          console.error(err);
+          this.toastr.error("Jármű nem található!", "Hiba!");
+        }
+      });
+    }
+
     else{
       this.vehicleService.getAll().subscribe({
         next: vehicles => this.vehicles = vehicles,

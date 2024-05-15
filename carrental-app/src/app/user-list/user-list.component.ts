@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { UserDTO } from '../../../models';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -16,6 +17,7 @@ export class UserListComponent implements OnInit {
   constructor(private toastr: ToastrService) {}
 
   userService = inject(UserService);
+  authService = inject(AuthService);
   users: UserDTO[] = [];
   router = inject(Router);
 

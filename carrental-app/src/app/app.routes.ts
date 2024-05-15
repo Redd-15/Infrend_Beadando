@@ -7,19 +7,24 @@ import { RentStartFormComponent } from './rent-start-form/rent-start-form.compon
 import { RentEndFormComponent } from './rent-end-form/rent-end-form.component';
 import { RentListComponent } from './rent-list/rent-list.component';
 import { RentEditComponent } from './rent-edit/rent-edit.component';
+import { LoginComponent } from './login/login.component';
+import { inject } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 export const routes: Routes = [
     {
         path: '',
-        component : UserListComponent
+        component : UserListComponent,
     },
     {
         path: 'add-user',
-        component : UserFormComponent
+        component : UserFormComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
     {
         path: 'edit-user/:id',
-        component : UserFormComponent
+        component : UserFormComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
     {
         path: 'vehicles',
@@ -27,19 +32,23 @@ export const routes: Routes = [
     },
     {
         path: 'add-vehicle',
-        component : VehicleFormComponent
+        component : VehicleFormComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
     {
         path: 'edit-vehicle/:id',
-        component : VehicleFormComponent
+        component : VehicleFormComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
     {
         path: 'rent-start/user/:user',
-        component : RentStartFormComponent
+        component : RentStartFormComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
     {
         path: 'rent-start/vehicle/:vehicle',
-        component : RentStartFormComponent
+        component : RentStartFormComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
     {
         path: 'rent-list',
@@ -47,10 +56,16 @@ export const routes: Routes = [
     },
     {
         path: 'rent-end/:id',
-        component : RentEndFormComponent
+        component : RentEndFormComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
     {
         path: 'rent-edit/:id',
-        component : RentEditComponent
+        component : RentEditComponent,
+        canActivate: [ () => inject(AuthService).preventGuestAccess()]
     },
+    {
+        path: 'login',
+        component: LoginComponent
+    }
 ];

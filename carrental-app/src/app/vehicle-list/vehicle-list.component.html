@@ -1,7 +1,6 @@
-
 <form class="form-inline" [formGroup]="searchForm">
     <div class="row" style="margin-bottom: 2%; margin-top: 1%;">
-        
+
         <div class="form-group col-md-2">
             <label for="id" class="form-label">Azonosító</label>
             <input type="text" class="form-control" id="id" formControlName="id">
@@ -34,13 +33,13 @@
                 <option value='hajó'>Hajó</option>
                 <option value='-'>Mindegy</option>
             </select>
-        </div> 
+        </div>
         <div class="form-group col-md-2" style="margin-top: 2.5%; margin-bottom: 1%;">
             <button class="btn btn-outline-primary margin" (click)="search()">Keresés</button>
             <button class="btn btn-outline-secondary margin" (click)="resetSearch()">Reset</button>
         </div>
 
-    </div>    
+    </div>
 </form>
 
 
@@ -59,26 +58,35 @@
             <th>Óra állása</th>
             <th>Státusz</th>
             <th>Jármű típus</th>
+            @if (authService.isLoggedIn()) {
+            <th>Műveletek</th>
+            }
         </tr>
     </thead>
     <tbody>
         @for (vehicle of vehicles; track $index) {
-            <tr>
-                <td>{{vehicle.id}}</td>
-                <td>{{vehicle.brand}}</td>
-                <td>{{vehicle.type}}</td>
-                <td>{{vehicle.licensePlate}}</td>
-                <td>{{vehicle.vin}}</td>
-                <td>{{vehicle.pricePerDay}} Ft</td>
-                <td>{{vehicle.odometer}} km</td>
-                <td>{{vehicle.status}}</td>
-                <td>{{vehicle.vehicleType}}</td>
-                <td>
+        <tr>
+            <td>{{vehicle.id}}</td>
+            <td>{{vehicle.brand}}</td>
+            <td>{{vehicle.type}}</td>
+            <td>{{vehicle.licensePlate}}</td>
+            <td>{{vehicle.vin}}</td>
+            <td>{{vehicle.pricePerDay}} Ft</td>
+            <td>{{vehicle.odometer}} km</td>
+            <td>{{vehicle.status}}</td>
+            <td>{{vehicle.vehicleType}}</td>
+            @if (authService.isLoggedIn()) {
+            <td class="text-end">
+                
+                    @if (vehicle.status == freeVehicleStatus) {
                     <button class="btn btn-outline-success" (click)="goToRentForm(vehicle.id)">Foglalás</button>
+                    }
                     <button class="btn btn-outline-primary" (click)="goToVehicleForm(vehicle.id)">Módosítás</button>
                     <button class="btn btn-outline-danger" (click)="deleteVehicle(vehicle)">Törlés</button>
-                </td>
-            </tr>
+                
+            </td>
+            }
+        </tr>
         }
     </tbody>
 </table>

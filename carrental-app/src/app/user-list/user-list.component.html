@@ -7,24 +7,28 @@
             <th>Telefonszám</th>
             <th>Személy ig. szám</th>
             <th>Jogosítvány szám</th>
+            @if (authService.isLoggedIn()) {
             <th>Műveletek</th>
+            }
         </tr>
     </thead>
     <tbody>
         @for (user of users; track $index) {
-            <tr>
-                <td>{{user.customerId}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.address}}</td>
-                <td>{{user.phone}}</td>
-                <td>{{user.idCard}}</td>
-                <td>{{user.driversLicense}}</td>
-                <td>
-                    <button class="btn btn-outline-success" (click)="goToRentForm(user.id)">Foglalás</button>
-                    <button class="btn btn-outline-primary" (click)="goToUserForm(user.id)">Módosítás</button>
-                    <button class="btn btn-outline-danger" (click)="deleteUser(user)">Törlés</button>
-                </td>
-            </tr>
+        <tr>
+            <td>{{user.customerId}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.address}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.idCard}}</td>
+            <td>{{user.driversLicense}}</td>
+            @if (authService.isLoggedIn()) {
+            <td>
+                <button class="btn btn-outline-success" (click)="goToRentForm(user.id)">Foglalás</button>
+                <button class="btn btn-outline-primary" (click)="goToUserForm(user.id)">Módosítás</button>
+                <button class="btn btn-outline-danger" (click)="deleteUser(user)">Törlés</button>
+            </td>
+            }
+        </tr>
         }
     </tbody>
 </table>

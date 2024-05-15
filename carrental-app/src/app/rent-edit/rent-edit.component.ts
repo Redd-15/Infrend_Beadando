@@ -47,17 +47,34 @@ export class RentEditComponent {
 
   ngOnInit(): void {
 
-    this.userService.getAll().subscribe(users => this.users = users);
-    this.vehicleService.getAll().subscribe(vehicles => this.vehicles = vehicles);
+    this.userService.getAll().subscribe({
+      error: () => { this.toastr.error('Hiba történt a felhasználók lekérdezése közben!', 'Hiba!'); },
+      next:
+        (users) => {
+          this.users = users;
+          this.vehicleService.getAll().subscribe({
+            error: () => { this.toastr.error('Hiba történt a járművek lekérdezése közben!', 'Hiba!'); },
+            next:
+              (vehicles) => {
+                this.vehicles = vehicles
 
-    const id = this.activatedRoute.snapshot.params['id'];
 
-    this.rentService.getById(id).subscribe({
-      error: () => {this.toastr.error('Hiba történt a bérlés lekérdezése közben!', 'Hiba!');},
-      next: (rent) => {
-        console.log(rent);
-        this.rentForm.setValue(rent);
-      }
+                const id = this.activatedRoute.snapshot.params['id'];
+
+                this.rentService.getById(id).subscribe({
+                  error: () => { this.toastr.error('Hiba történt a bérlés lekérdezése közben!', 'Hiba!'); },
+                  next: (rent) => {
+                    console.log(rent);
+                    this.rentForm.setValue(rent);
+                  }
+                });
+
+
+              }
+          });
+
+
+        }
     });
 
     this.rentForm.get('id')?.addValidators(Validators.required);
@@ -75,10 +92,10 @@ export class RentEditComponent {
 
       this.rentService.update(this.rentForm.value as RentDTO).subscribe({
 
-        error: () => {this.toastr.error('Hiba történt a bérlés frissítése közben!', 'Hiba!');},
+        error: () => { this.toastr.error('Hiba történt a bérlés frissítése közben!', 'Hiba!'); },
         next: () => {
           this.rentService.update(this.rentForm.value as RentDTO);
-          this.toastr.success('Foglalás sikeresen frissítve','Siker!',{timeOut: 3000});
+          this.toastr.success('Foglalás sikeresen frissítve', 'Siker!', { timeOut: 3000 });
           this.router.navigateByUrl('/rent-list');
         }
 
