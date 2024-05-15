@@ -9,9 +9,22 @@
                 <label for="password" class="form-label">Jelszó</label>
                 <input type="password" class="form-control" id="password" formControlName="password">
             </div>
-            
-            <div class="text-center">
-                <button class="btn btn-outline-primary" (click)="login()">Belépés</button>
+            @if (isRegisterMode) {
+            <div class="mb-3">
+                <label for="password2" class="form-label">Jelszó újból</label>
+                <input type="password" class="form-control" id="password2" formControlName="password2">
+            </div>
+            }
+
+            <div class="text-end">
+                @if (!isRegisterMode) {
+                <button class="btn btn-outline-primary" style="margin-right: 1%;" (click)="login()">Belépés</button>
+                <button class="btn btn-outline-secondary" (click)="changeToRegister()">Regisztráció</button>
+                }
+                @if (isRegisterMode) {
+                    <button class="btn btn-outline-primary" style="margin-right: 1%;" (click)="register()">Regisztráció</button>
+                    <button class="btn btn-outline-secondary" (click)="changeToLogin()">Belépés</button>
+                    }
             </div>
         </form>
     </div>

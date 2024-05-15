@@ -10,11 +10,11 @@ export class UserService {
   http = inject(HttpClient);
 
   getAll() {
-    return this.http.get<UserDTO[]>('/api/users');    
+    return this.http.get<UserDTO[]>('/api/users');
   }
 
   getOne(id: number) {
-    return this.http.get<UserDTO>('/api/user/' + id);    
+    return this.http.get<UserDTO>('/api/user/' + id);
   }
 
   create(user: UserDTO) {
@@ -26,10 +26,14 @@ export class UserService {
   }
 
   delete(id: number) {
-    return this.http.delete('/api/user/' + id); 
+    return this.http.delete('/api/user/' + id);
   }
 
-  login(data: LoginDTO){
+  login(data: LoginDTO) {
     return this.http.post<AccessTokenDTO>('/api/login', data);
+  }
+
+  register(data: LoginDTO) {
+    return this.http.post<LoginDTO>('/api/register', data);
   }
 }

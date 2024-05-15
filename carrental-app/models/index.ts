@@ -36,19 +36,15 @@ export interface RentDTO{
 }
 
 export interface LoginDTO{
-    email: string;
-    password: string;
+    email: string | null;
+    password: string | null;
+    password2: string | null;
 }
 
 export interface endCalculationDTO {
     newOdometer: number,
     distanceMoney: number,
     crashMoney: number
-}
-
-export interface LoginDTO{
-    email: string,
-    password: string
 }
 
 export interface AccessTokenDTO{
